@@ -39,34 +39,25 @@ class ViewController: UIViewController {
 
 
     @IBAction func action(_ sender: Any) {
-        let actionSheet = CustomAlert()
+        
+        let header = CustomAlertHeaderView(title: "Some title",
+                                           message: "Twitter.com Twit")
+        
+        let actionSheet = CustomAlert(header: header)
         actionSheet.appearance = appearance
         
-        let header = CustomAlertHeaderView(message: "Twitter.com Twitter.com Twitter.co Twitter.com Twitter.com Twitter.com")
-        
-        let openButton = CustomAlertButton(title: "Open in Open in Open in Open in Open in Open in") {
+        let camcel = CustomAlertAction(title: "Cancel") {
             
-            self.actionLabel.text = "Open in..."
         }
         
-        let copyButton = CustomAlertButton(icon: UIImage(named: "2")!,
-                                           title: "Copy Link") {
-                                            
-                                            self.actionLabel.text = "Copy Link"
+        let ok = CustomAlertAction(title: "OK") {
+            
         }
-        
-        let readingButton = ActionSheetButton(title: "Add to Reading List") {
-            self.actionLabel.text = "Add to Reading List"
-        }
-        
-        actionSheet.addCancelButonWith(title: "Cancel") {
-            // when tap om cancel button
-        }
-        
-        actionSheet.addItems([header, openButton, copyButton, readingButton])
-        actionSheet.show(from: self)
 
+        actionSheet.addAction(camcel)
+        actionSheet.addAction(ok)
+        
+        actionSheet.show(from: self)
     }
-    
 }
 

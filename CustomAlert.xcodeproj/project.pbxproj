@@ -16,9 +16,8 @@
 		B51A573022A9B08A00667596 /* CustomAlertUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51A572F22A9B08A00667596 /* CustomAlertUITests.swift */; };
 		B51A573E22A9B1AD00667596 /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51A573D22A9B1AD00667596 /* CustomAlert.swift */; };
 		B51A574022A9B20300667596 /* CustomAlertAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51A573F22A9B20300667596 /* CustomAlertAppearance.swift */; };
-		B51A574222A9B6AF00667596 /* CustomAlertItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51A574122A9B6AF00667596 /* CustomAlertItem.swift */; };
 		B51A574422A9B71800667596 /* CustomAlertHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51A574322A9B71800667596 /* CustomAlertHeaderView.swift */; };
-		B51A574622A9B77C00667596 /* CustomAlertButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51A574522A9B77C00667596 /* CustomAlertButton.swift */; };
+		B51A574622A9B77C00667596 /* CustomAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51A574522A9B77C00667596 /* CustomAlertAction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,9 +53,8 @@
 		B51A573122A9B08A00667596 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B51A573D22A9B1AD00667596 /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
 		B51A573F22A9B20300667596 /* CustomAlertAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertAppearance.swift; sourceTree = "<group>"; };
-		B51A574122A9B6AF00667596 /* CustomAlertItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertItem.swift; sourceTree = "<group>"; };
 		B51A574322A9B71800667596 /* CustomAlertHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertHeaderView.swift; sourceTree = "<group>"; };
-		B51A574522A9B77C00667596 /* CustomAlertButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertButton.swift; sourceTree = "<group>"; };
+		B51A574522A9B77C00667596 /* CustomAlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertAction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,9 +113,8 @@
 				B51A571B22A9B08A00667596 /* Info.plist */,
 				B51A573D22A9B1AD00667596 /* CustomAlert.swift */,
 				B51A574322A9B71800667596 /* CustomAlertHeaderView.swift */,
-				B51A574522A9B77C00667596 /* CustomAlertButton.swift */,
+				B51A574522A9B77C00667596 /* CustomAlertAction.swift */,
 				B51A573F22A9B20300667596 /* CustomAlertAppearance.swift */,
-				B51A574122A9B6AF00667596 /* CustomAlertItem.swift */,
 			);
 			path = CustomAlert;
 			sourceTree = "<group>";
@@ -271,9 +268,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B51A574622A9B77C00667596 /* CustomAlertButton.swift in Sources */,
+				B51A574622A9B77C00667596 /* CustomAlertAction.swift in Sources */,
 				B51A573E22A9B1AD00667596 /* CustomAlert.swift in Sources */,
-				B51A574222A9B6AF00667596 /* CustomAlertItem.swift in Sources */,
 				B51A574022A9B20300667596 /* CustomAlertAppearance.swift in Sources */,
 				B51A574422A9B71800667596 /* CustomAlertHeaderView.swift in Sources */,
 				B51A571222A9B08700667596 /* ViewController.swift in Sources */,

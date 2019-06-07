@@ -1,5 +1,5 @@
 //
-//  CustomAlertButton.swift
+//  CustomAlertAction.swift
 //  CustomAlert
 //
 //  Created by A K on 6/7/19.
@@ -8,18 +8,17 @@
 
 import UIKit
 
-class CustomAlertButton: CustomAlertItem {
+class CustomAlertAction: UIView {
 
-    override var appearance: CustomAlertAppearance! {
+    var dissmissBlock: (() -> Void)?
+    
+    var appearance: CustomAlertAppearance! {
         didSet {
             setupLayout()
-            contentView.backgroundColor = appearance.backgroundColor
         }
     }
     
     private let title: String
-    
-    private lazy var iconImageView = UIImageView()
     
     private var contentView: UIView = {
         let contentView = UIView()
@@ -55,11 +54,6 @@ class CustomAlertButton: CustomAlertItem {
         self.title = title
         super.init(frame: CGRect.zero)
         self.dissmissBlock = tappedBlock
-    }
-    
-    convenience init(icon: UIImage, title: String, tappedBlock: @escaping () -> Void) {
-        self.init(title: title, tappedBlock: tappedBlock)
-        iconImageView.image = icon
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -131,7 +125,6 @@ class CustomAlertButton: CustomAlertItem {
     }
     
     @objc private func buttonAction(_ sender: UIButton) {
-        delegate?.hide()
         if let dissmissBlock = dissmissBlock {
             dissmissBlock()
         }

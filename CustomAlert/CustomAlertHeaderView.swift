@@ -8,7 +8,13 @@
 
 import UIKit
 
-class CustomAlertHeaderView: CustomAlertItem {
+class CustomAlertHeaderView: UIView {
+
+    var appearance: CustomAlertAppearance! {
+        didSet {
+            setupLayout()
+        }
+    }
 
     private var title: String?
     private var message: String?
@@ -65,13 +71,6 @@ class CustomAlertHeaderView: CustomAlertItem {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override var appearance: CustomAlertAppearance! {
-        didSet {
-            setupLayout()
-            contentView.backgroundColor = appearance.backgroundColor
-        }
-    }
-    
     private func setupLayout() {
         addSubview(contentView)
         contentView.translatesAutoresizingMaskIntoConstraints = false
@@ -110,7 +109,7 @@ class CustomAlertHeaderView: CustomAlertItem {
             
             contentView.addSubview(messageLabel)
             messageLabel.translatesAutoresizingMaskIntoConstraints = false
-            messageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 12).isActive = true
+            messageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 6).isActive = true
             messageLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
             messageLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16).isActive = true
             messageLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant:-16).isActive = true
