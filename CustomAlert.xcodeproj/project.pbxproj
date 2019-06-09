@@ -111,10 +111,7 @@
 				B51A571622A9B08A00667596 /* Assets.xcassets */,
 				B51A571822A9B08A00667596 /* LaunchScreen.storyboard */,
 				B51A571B22A9B08A00667596 /* Info.plist */,
-				B51A573D22A9B1AD00667596 /* CustomAlert.swift */,
-				B51A574322A9B71800667596 /* CustomAlertHeaderView.swift */,
-				B51A574522A9B77C00667596 /* CustomAlertAction.swift */,
-				B51A573F22A9B20300667596 /* CustomAlertAppearance.swift */,
+				B54D27DD22AD908000D9980F /* Alert */,
 			);
 			path = CustomAlert;
 			sourceTree = "<group>";
@@ -135,6 +132,17 @@
 				B51A573122A9B08A00667596 /* Info.plist */,
 			);
 			path = CustomAlertUITests;
+			sourceTree = "<group>";
+		};
+		B54D27DD22AD908000D9980F /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				B51A573D22A9B1AD00667596 /* CustomAlert.swift */,
+				B51A574322A9B71800667596 /* CustomAlertHeaderView.swift */,
+				B51A574522A9B77C00667596 /* CustomAlertAction.swift */,
+				B51A573F22A9B20300667596 /* CustomAlertAppearance.swift */,
+			);
+			path = Alert;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
