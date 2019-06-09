@@ -40,23 +40,23 @@ class ViewController: UIViewController {
 
     @IBAction func action(_ sender: Any) {
         
-        let header = CustomAlertHeaderView(title: "Some title",
-                                           message: "Twitter.com Twit")
+        let actionSheet = CustomAlert(title: "Some title Some title Some title Some title Some title Some title Some title Some title",
+                                      message: "Twitter.com Twit Twitter.com Twit Twitter.com Twit  Twitter.com Twit Twitter.com Twit Twitter.com Twit Twitter.com Twit Twitter.com Twit Twitter.com Twit",
+                                      appearance: appearance)
         
-        let actionSheet = CustomAlert(header: header)
-        actionSheet.appearance = appearance
-        
-        let camcel = CustomAlertAction(title: "Cancel") {
+        let cancel = CustomAlertAction(title: "Cancel", handler: { _ in
             
-        }
-        
-        let ok = CustomAlertAction(title: "OK") {
             
-        }
+        })
+        
+        let ok = CustomAlertAction(title: "OK", handler: { _ in
+            
+            
+        })
 
-        actionSheet.addAction(camcel)
+        actionSheet.addAction(cancel)
         actionSheet.addAction(ok)
-        
+
         actionSheet.show(from: self)
     }
 }

@@ -11,6 +11,8 @@ import UIKit
 class CustomAlertAction: UIView {
 
     var dissmissBlock: (() -> Void)?
+
+    var handler: ((CustomAlertAction) -> Void)?
     
     var appearance: CustomAlertAppearance! {
         didSet {
@@ -20,8 +22,9 @@ class CustomAlertAction: UIView {
     
     private let title: String
     
-    private var contentView: UIView = {
+    private lazy var contentView: UIView = {
         let contentView = UIView()
+        contentView.backgroundColor = appearance.backgroundColor
         return contentView
     }()
     
@@ -50,10 +53,10 @@ class CustomAlertAction: UIView {
         return titleLabel
     }()
     
-    init(title: String, tappedBlock: @escaping () -> Void) {
+    init(title: String, handler: ((CustomAlertAction) -> Void)? = nil) {
         self.title = title
         super.init(frame: CGRect.zero)
-        self.dissmissBlock = tappedBlock
+        self.handler = handler
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -70,38 +73,23 @@ class CustomAlertAction: UIView {
         addSubview(contentView)
         contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        contentView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        contentView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         contentView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         
         addSubview(separatorView)
         separatorView.translatesAutoresizingMaskIntoConstraints = false
-        separatorView.topAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        separatorView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         separatorView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         separatorView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        separatorView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        separatorView.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
+        separatorView.rightAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
+        separatorView.widthAnchor.constraint(equalToConstant: 0.5).isActive = true
         
-        if iconImageView.image == nil {
-            contentView.addSubview(titleLabel)
-            titleLabel.translatesAutoresizingMaskIntoConstraints = false
-            titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-            titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-            titleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 32).isActive = true
-            titleLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -32).isActive = true
-        } else {
-            contentView.addSubview(iconImageView)
-            iconImageView.translatesAutoresizingMaskIntoConstraints = false
-            iconImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-            iconImageView.heightAnchor.constraint(equalToConstant: 30).isActive = true
-            iconImageView.widthAnchor.constraint(equalToConstant: 30).isActive = true
-            iconImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 32).isActive = true
-            
-            contentView.addSubview(titleLabel)
-            titleLabel.translatesAutoresizingMaskIntoConstraints = false
-            titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-            titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-            titleLabel.leftAnchor.constraint(greaterThanOrEqualTo: iconImageView.rightAnchor, constant: 8).isActive = true
-        }
+        contentView.addSubview(titleLabel)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        titleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8).isActive = true
+        titleLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -8).isActive = true
         
         contentView.addSubview(sheetButton)
         sheetButton.translatesAutoresizingMaskIntoConstraints = false
@@ -114,17 +102,18 @@ class CustomAlertAction: UIView {
     @objc private func touchDownAction(_ sender: UIButton) {
         UIView.animate(withDuration: 0.2) {
             self.contentView.backgroundColor = self.appearance.selectionColor
-            self.separatorView.backgroundColor = self.appearance.selectionColor
-            
         }
     }
     
     @objc private func touchDragOutsideAction(_ sender: UIButton) {
         self.contentView.backgroundColor = self.appearance.backgroundColor
-        self.separatorView.backgroundColor = self.appearance.separatorColor
     }
     
     @objc private func buttonAction(_ sender: UIButton) {
+        if let handler = handler {
+            handler(self)
+        }
+        
         if let dissmissBlock = dissmissBlock {
             dissmissBlock()
         }

@@ -10,22 +10,30 @@ import UIKit
 
 class CustomAlert: UIViewController {
     
-    var appearance = CustomAlertAppearance()
-    
     func show(from viewController: UIViewController) {
         modalPresentationStyle = .overFullScreen
         viewController.present(self, animated: false, completion: nil)
     }
     
     func addAction(_ action: CustomAlertAction) {
-        headerView.appearance = appearance
         action.appearance = appearance
+        action.dissmissBlock = {
+            self.hideAction()
+        }
+        
+        if stackView.arrangedSubviews.isEmpty {
+            action.hideSeparator()
+        }
+        
         stackView.addArrangedSubview(action)
     }
     
-    func hide() {
-        hideAction()
-    }
+    private lazy var separatorView: UIView = {
+        var separatorView = UIView()
+        separatorView.backgroundColor = UIColor.green
+        return separatorView
+    }()
+
     
     //MARK: - Private
     private var containerView: UIView = {
@@ -33,6 +41,7 @@ class CustomAlert: UIViewController {
         containerView.contentMode = .scaleAspectFill
         containerView.layer.cornerRadius = 16.0
         containerView.clipsToBounds = true
+        containerView.alpha = 0
         return containerView
     }()
     
@@ -40,7 +49,7 @@ class CustomAlert: UIViewController {
         let stackView = UIStackView()
         stackView.backgroundColor = UIColor.clear
         stackView.axis = .horizontal
-        stackView.distribution = .equalSpacing
+        stackView.distribution = .fillEqually
         stackView.alignment = .fill
         return stackView
     }()
@@ -60,9 +69,11 @@ class CustomAlert: UIViewController {
     private var cancelBlock: (() -> Void)?
     
     private let headerView: CustomAlertHeaderView
+    private let appearance: CustomAlertAppearance
     
-    init(header: CustomAlertHeaderView) {
-        self.headerView = header
+    init(title: String?, message: String?, appearance: CustomAlertAppearance) {
+        self.appearance = appearance
+        self.headerView = CustomAlertHeaderView(title: title, message: message, appearance: appearance)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -77,24 +88,45 @@ class CustomAlert: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        showAction()
+        
+        DispatchQueue.main.async {
+            self.showAction()
+        }
     }
     
     private func showAction() {
-        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.3, animations: {
             self.view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-            self.view.layoutIfNeeded()
+            self.containerView.alpha = 1
         }, completion: nil)
+        
+        containerView.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+        
+        UIView.animate(withDuration: 0.6,
+                       delay: 0.0,
+                       usingSpringWithDamping: 0.4,
+                       initialSpringVelocity: 10,
+                       options: [.curveLinear, .allowUserInteraction],
+                       animations: {
+            self.containerView.transform = CGAffineTransform.identity
+        }, completion: nil)
+        
+        
+        UIView.animate(withDuration: 0.2, animations: {
+        }, completion: nil)
+
     }
     
-    @objc private func hideAction() {
+    private func hideAction() {
         UIView.animate(withDuration: 0.3, animations: {
             self.view.backgroundColor = UIColor.clear
-            self.view.layoutIfNeeded()
-            
         }, completion: { (completion) in
             self.dismiss(animated: false, completion: nil)
         })
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            self.containerView.alpha = 0
+        }, completion: nil)
     }
     
     private func setupLayout() {
@@ -102,7 +134,7 @@ class CustomAlert: UIViewController {
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        containerView.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        containerView.widthAnchor.constraint(equalToConstant: 240).isActive = true
         
         containerView.addSubview(headerView)
         headerView.translatesAutoresizingMaskIntoConstraints = false
@@ -110,12 +142,15 @@ class CustomAlert: UIViewController {
         headerView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
         headerView.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
         
+        separatorView.translatesAutoresizingMaskIntoConstraints = false
+        separatorView.widthAnchor.constraint(equalToConstant: 0.5).isActive = true
+        
         containerView.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.topAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
         stackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
         stackView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
         stackView.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
-        stackView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        stackView.heightAnchor.constraint(equalToConstant: 44).isActive = true
     }
 }

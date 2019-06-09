@@ -10,11 +10,7 @@ import UIKit
 
 class CustomAlertHeaderView: UIView {
 
-    var appearance: CustomAlertAppearance! {
-        didSet {
-            setupLayout()
-        }
-    }
+    private var appearance = CustomAlertAppearance()
 
     private var title: String?
     private var message: String?
@@ -51,24 +47,23 @@ class CustomAlertHeaderView: UIView {
         return separatorView
     }()
     
-    init(title: String) {
+    init(title: String?, message: String?, appearance: CustomAlertAppearance) {
         super.init(frame: CGRect.zero)
         self.title = title
-    }
-    
-    init(message: String) {
-        super.init(frame: CGRect.zero)
         self.message = message
-    }
-    
-    init(title: String, message: String) {
-        self.title = title
-        self.message = message
-        super.init(frame: CGRect.zero)
+        self.appearance = appearance
+        setupLayout()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupData(title: String?, message: String?, appearance: CustomAlertAppearance) {
+        self.title = title
+        self.message = message
+        self.appearance = appearance
+        setupLayout()
     }
     
     private func setupLayout() {
