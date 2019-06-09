@@ -83,38 +83,25 @@ class CustomAlert: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupLayout()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        DispatchQueue.main.async {
-            self.showAction()
-        }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupLayout()
+        showAction()
     }
     
     private func showAction() {
+        containerView.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+
         UIView.animate(withDuration: 0.3, animations: {
             self.view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-            self.containerView.alpha = 1
         }, completion: nil)
-        
-        containerView.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
-        
-        UIView.animate(withDuration: 0.6,
-                       delay: 0.0,
-                       usingSpringWithDamping: 0.4,
-                       initialSpringVelocity: 10,
-                       options: [.curveLinear, .allowUserInteraction],
-                       animations: {
-            self.containerView.transform = CGAffineTransform.identity
-        }, completion: nil)
-        
         
         UIView.animate(withDuration: 0.2, animations: {
+            self.containerView.alpha = 1
+            self.containerView.transform = CGAffineTransform.identity
         }, completion: nil)
-
     }
     
     private func hideAction() {
