@@ -10,6 +10,13 @@ import UIKit
 
 class CustomAlert: UIViewController {
     
+    init(title: String?, message: String?, appearance: CustomAlertAppearance?) {
+        let appearance = appearance ?? CustomAlertAppearance()
+        self.appearance = appearance
+        self.headerView = CustomAlertHeaderView(title: title, message: message, appearance: appearance)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
     func show(from viewController: UIViewController) {
         modalPresentationStyle = .overFullScreen
         viewController.present(self, animated: false, completion: nil)
@@ -71,12 +78,6 @@ class CustomAlert: UIViewController {
     private let headerView: CustomAlertHeaderView
     private let appearance: CustomAlertAppearance
     
-    init(title: String?, message: String?, appearance: CustomAlertAppearance) {
-        self.appearance = appearance
-        self.headerView = CustomAlertHeaderView(title: title, message: message, appearance: appearance)
-        super.init(nibName: nil, bundle: nil)
-    }
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -121,7 +122,7 @@ class CustomAlert: UIViewController {
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        containerView.widthAnchor.constraint(equalToConstant: 240).isActive = true
+        containerView.widthAnchor.constraint(equalToConstant: 266).isActive = true
         
         containerView.addSubview(headerView)
         headerView.translatesAutoresizingMaskIntoConstraints = false
