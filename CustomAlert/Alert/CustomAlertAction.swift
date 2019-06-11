@@ -64,7 +64,7 @@ class CustomAlertAction: UIView {
     }
     
     func hideSeparator() {
-        separatorView.backgroundColor = appearance.backgroundColor
+        separatorView.isHidden = true
     }
     
     private func setupLayout() {
